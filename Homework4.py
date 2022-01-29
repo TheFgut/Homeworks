@@ -54,7 +54,7 @@ def find_shortest_word(sentence):
         prev_let = ""
         letters_repeated = 0
         with_doubled_glasn = False
-        for letter in word:  # проверка на дублирования гласной, тройной повтор и более пропускается
+        for letter in word:  # проверка на дублирование гласной, тройной повтор и более пропускается
             if letter == prev_let:
                 letters_repeated += 1
                 if glasnaya_check(letter) is False:
@@ -72,10 +72,10 @@ def find_shortest_word(sentence):
     return smallest_word
 
 
-print(ord("!"))
 wordsCount = random.randint(5, 8)
 Sentence = gen_sentence(wordsCount, 3, 8)
-print("Один сумасшедший сказал: " + Sentence)
+phrase1 = "Один сумасшедший сказал: " + Sentence
+print(phrase1)
 
 shortest = find_shortest_word(Sentence)
 phrase2 = "А второй ему ответил: "
@@ -96,6 +96,8 @@ for name, price in shopsInfo.items():
     if maxPrice > price > minPrice:
         matchShops += name + ", "
 
-print("\nLower limit: " + str(minPrice))
-print("Higher limit: " + str(maxPrice))
+lLimit = "\nLower limit: " + str(minPrice)
+hLimit = "Higher limit: " + str(maxPrice)
+print(lLimit)
+print(hLimit)
 print(matchShops)
