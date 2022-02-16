@@ -148,6 +148,8 @@ def ask_what_action_to_do(msg):
 
 username = input("Write your name: ")
 
+print_statistics()
+
 while True:
 
     result = rsp_game()
