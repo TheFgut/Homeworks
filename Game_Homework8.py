@@ -1,4 +1,5 @@
 # Rock Scissors Paper
+import time
 from random import choice as random_choice, shuffle
 
 
@@ -59,11 +60,22 @@ def save_game_data(username, game_result, user_figure, computer_figure):
         opened_file = open(data_file_name, mode='a')
     except ValueError as v:
         opened_file = open(data_file_name, mode='w')
+    global gameNum
 
+    gameNum += 1
     result_names = {True: "user_win", False: "computer_win", None: "Draw"}
-    opened_file.write(f"User - {username}, result - {result_names[game_result]}, "
+    opened_file.write(f"Game{gameNum} time - {time.asctime()}; User - {username}, result - {result_names[game_result]}, "
                          f"User figure - {user_figure}, computer figure- {computer_figure}\n")
     opened_file.close()
+
+
+def get_stats_of_games_count():
+    global data_file_name
+    try:
+        opened_file = open(data_file_name, mode='r')
+        return len(opened_file.readlines())
+    except FileNotFoundError as f:
+        return  0
 
 
 def read_winners_statistics():
@@ -71,7 +83,7 @@ def read_winners_statistics():
 
     :return: dict[line number] = string with player name and count of games where he was winner in it
     """
-    data_file_name = "data_file.txt"
+    global data_file_name
 
     data = []
     try:
@@ -85,12 +97,12 @@ def read_winners_statistics():
     players_info = {}
     for line in lines:
         info = line.split(" ")
-        info[2] = info[2].replace(",", "")
-        if info[5].replace(",", "") == "user_win":
-            if players_info.get(info[2]) is None:
-                players_info[info[2]] = 1
+        game_result = info[10].replace(",", "")
+        if info[13].replace(",", "") == "user_win":
+            if players_info.get(game_result) is None:
+                players_info[game_result] = 1
             else:
-                players_info[info[2]] += 1
+                players_info[game_result] += 1
     if len(players_info.items()) == 0:
         data.append("No top players\n")
         return data
@@ -146,8 +158,10 @@ def ask_what_action_to_do(msg):
         print("Don't understand, please write again")
 
 
-username = input("Write your name: ")
+data_file_name = "data_file.txt"
+gameNum = get_stats_of_games_count()
 
+username = input("Write your name: ")
 print_statistics()
 
 while True:
@@ -157,4 +171,3 @@ while True:
 
     if ask_what_action_to_do("Do you want to play again?\n Y/N or \"stats\" to look win statistics\n") is False:
         break
-
