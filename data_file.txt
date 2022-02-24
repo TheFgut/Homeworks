@@ -1,7 +1,0 @@
-Game1 time - Wed Feb 16 23:11:17 2022; User - RealMn, result - user_win, User figure - Lizard, computer figure- Spok
-Game2 time - Wed Feb 16 23:11:22 2022; User - RealMn, result - user_win, User figure - Lizard, computer figure- Paper
-Game3 time - Wed Feb 16 23:11:26 2022; User - RealMn, result - computer_win, User figure - Lizard, computer figure- Scissors
-Game4 time - Wed Feb 16 23:11:31 2022; User - RealMn, result - user_win, User figure - Spok, computer figure- Scissors
-Game5 time - Wed Feb 16 23:12:20 2022; User - MinMon, result - computer_win, User figure - Paper, computer figure- Lizard
-Game6 time - Wed Feb 16 23:12:29 2022; User - MinMon, result - user_win, User figure - Scissors, computer figure- Lizard
-Game7 time - Wed Feb 16 23:12:32 2022; User - MinMon, result - user_win, User figure - Scissors, computer figure- Paper
