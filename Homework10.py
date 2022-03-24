@@ -1,3 +1,6 @@
+from datetime import datetime
+import time
+
 class Point:
     coords = None
 
@@ -116,6 +119,18 @@ class Line:
     last_point = property(last_point_getter, last_point_setter)
 
 
+def hard_func():
+    time.sleep(5)
+
+
+def time_checker_decorator(func):
+    def wrapper():
+        start_time = datetime.now()
+        func()
+        print(datetime.now() - start_time)
+    return wrapper
+
+
 line = Line(Point(0, 0), Point(4, 0), Point(4, 2))
 print(line.length)
 line.length = 9
@@ -125,6 +140,9 @@ line = Line(Point(0, 0), Point(2, 2))
 print(line.length)
 line.first_point = Point(1, 2)
 print(line.first_point)
+
+hard_func = time_checker_decorator(hard_func)
+hard_func()
 
 
 
