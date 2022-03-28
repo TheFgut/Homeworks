@@ -20,6 +20,8 @@ def get_currency_info(response):
         currency_params = []
         for s in strs:
             param = re.findall(">[\w\.() ]+<", s)
+            if len(param) == 0:
+                continue
             currency_params.append(param[0][1:-1])
         currency_lst.append(currency_params)
     if len(currency_lst) == 1:
@@ -27,16 +29,19 @@ def get_currency_info(response):
     return currency_lst
 
 
-def write_data(courses_info):
+def write_data(courses_info, date):
+
     file_object = open(r"Courses.txt", "w")
+    file_object.write(f"Courses from: {date.year}.{date.month}.{date.day}\n")
     if courses_info is None:
         file_object.write("No info")
         return
     for crs_inf in courses_info:
-        file_object.write(f"{crs_inf[1]} to UAH: {crs_inf[2]}")
+        file_object.write(f"{crs_inf[1]} to UAH: {crs_inf[2]}\n")
 
 
 res = None
+date = datetime.date.today()
 while True:
     answer = input("Choose date(format - YYYY.MM.DD):\n")
     if answer == "Today":
@@ -45,17 +50,18 @@ while True:
         if re.fullmatch(r"\d{4}.\d{2}.\d{2}", answer) is None:
             print("Incorrect input")
             continue
-        date = answer.split(".")
+        date_str = answer.split(".")
         try:
-            datetime.date(int(date[0]), int(date[1]), int(date[2]))
+            date = datetime.date(int(date_str[0]), int(date_str[1]), int(date_str[2]))
             res = requests.request('GET', f'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date='
-                                          f'{date[0]}{date[1]}{date[2]}')
+                                          f'{date_str[0]}{date_str[1]}{date_str[2]}')
         except ValueError:
             print("Incorrect date value")
             continue
     courses_info = get_currency_info(res)
-    write_data(courses_info)
+    write_data(courses_info, date)
     break
+print("Done")
 
 
 
