@@ -33,11 +33,13 @@ def write_data(courses_info, date):
 
     file_object = open(r"Courses.txt", "w")
     file_object.write(f"Courses from: {date.year}.{date.month}.{date.day}\n")
+    counter = 1
     if courses_info is None:
         file_object.write("No info")
         return
     for crs_inf in courses_info:
-        file_object.write(f"{crs_inf[1]} to UAH: {crs_inf[2]}\n")
+        file_object.write(f"{counter}. {crs_inf[1]} to UAH: {crs_inf[2]}\n")
+        counter += 1
 
 
 res = None
